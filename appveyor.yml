@@ -2,21 +2,31 @@ version: '{build}'
 image: Visual Studio 2017
 configuration: Release
 install:
-- cmd: >-
+- ps: >-
     git clone -q --branch=master https://github.com/Microsoft/vcpkg.git vcpkg
 
-    copy /y hack\portfile.cmake vcpkg\ports\libwebsockets\portfile.cmake
+    if (!(Test-Path -Path 'cache\vcpkg-installed' )) {
+        Copy-Item cache\vcpkg-installed\* vcpkg\installed -recurse
+    }
+
+    Copy-Item hack\portfile.cmake vcpkg\ports\libwebsockets\portfile.cmake -Force
 
     pwd
 
-    vcpkg\bootstrap-vcpkg.bat
+    .\vcpkg\bootstrap-vcpkg.bat
 
-    vcpkg\vcpkg integrate install
+    .\vcpkg\vcpkg integrate install
 
-    vcpkg\vcpkg install libwebsockets
+    .\vcpkg\vcpkg install libwebsockets
 
     pwd
-- ps: >-
+
+    Remove-Item cache\vcpkg-installed -Force -Recurse
+
+    New-Item -Type dir cache\vcpkg-installed
+
+    Copy-Item vcpkg\installed\* cache\vcpkg-installed -Recurse -Force
+
     [Net.ServicePointManager]::SecurityProtocol = 'Tls, Tls11, Tls12'
 
     Start-FileDownload 'https://curl.haxx.se/ca/cacert.pem'
@@ -29,7 +39,7 @@ install:
 
     Copy-Item cacert.pem 'Lite\Release\PCMan\'
 
-cache: C:\projects\pcman-windows\vcpkg\installed
+cache: C:\projects\pcman-windows\cache\vcpkg-installed
 build:
   project: PCMan.sln
   parallel: true
