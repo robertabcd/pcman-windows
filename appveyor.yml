@@ -17,6 +17,8 @@ install:
 
     pwd
 - ps: >-
+    [Net.ServicePointManager]::SecurityProtocol = 'Tls, Tls11, Tls12'
+
     Start-FileDownload 'https://curl.haxx.se/ca/cacert.pem'
 
     Copy-Item cacert.pem 'Combo\Debug\PCMan Combo\'
