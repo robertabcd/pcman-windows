@@ -94,7 +94,8 @@
       <Culture>0x0404</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>"$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>wininet.lib;wsock32.lib;winmm.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -139,7 +140,8 @@
       <Culture>0x0404</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>"$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>wininet.lib;wsock32.lib;winmm.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -602,12 +604,6 @@
     <None Include="..\Resource\res\copy_cur.cur" />
     <None Include="..\Resource\res\drag_cur.cur" />
     <None Include="..\Resource\res\hand.cur" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="BuildMenuCombo.vcxproj">
-      <Project>{3dcaf1a3-ec8c-4e69-bd1e-458afba2be8e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

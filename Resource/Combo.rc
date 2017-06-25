@@ -94,12 +94,7 @@ BEGIN
     END
 END
 
-#if defined(APSTUDIO_INVOKED) || defined(BUILD_UI)
-#if defined(APSTUDIO_INVOKED)
-IDR_BUILD_UI$(BUILD_UI) MENU PRELOAD DISCARDABLE 
-#else
-IDR_BUILD_UI MENU PRELOAD DISCARDABLE 
-#endif
+IDR_BUILD_UI MENU PRELOAD DISCARDABLE
 BEGIN
     POPUP "連線 (&C)"
     BEGIN
@@ -166,57 +161,6 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "快速輸入常用文字 (&Q)\tCtrl+Enter", ID_FREQ_STR
         MENUITEM "播放動畫 (&M)",               ID_PLAY_ANSIMOVIE
-        MENUITEM "複製連結位址",                ID_EDIT_COPYURL
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "向右移動忽略全形自動偵測",    ID_RIGHTNODBCS
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "向左移動忽略全形自動偵測",    ID_LEFTNODBCS
-        , CHECKED, INACTIVE
-        MENUITEM "Backspace 忽略全形自動偵測\tAlt+Backspace", ID_BACKNODBCS
-        , CHECKED, INACTIVE
-        MENUITEM "輸入焦點移到位址列\tAlt+D",   ID_ADSFOCUS
-        , CHECKED, INACTIVE
-        MENUITEM "輸入焦點移到搜尋列\tAlt+K",   ID_SEARCHBAR_FOCUS
-        , CHECKED, INACTIVE
-        MENUITEM "快速輸入WWW網址\tAlt+W",      ID_ADSHTTP
-        , CHECKED, INACTIVE
-        MENUITEM "快速輸入Telnet網址\tAlt+T",   ID_ADSTELNET
-        , CHECKED, INACTIVE
-    END
-    POPUP "BBS畫面切換", CHECKED, INACTIVE, MENUBARBREAK
-    BEGIN
-        MENUITEM "兩連線分頁間來回切換\tCtrl+Tab", ID_SWITCH_BACK
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到上一個分頁\tCtrl+Left", ID_UP
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到下一個分頁\tCtrl+Right", ID_DOWN
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "捲軸往上捲一頁\tCtrl+PageUp", ID_PGU
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "捲軸往下捲一頁\tCtrl+PageDown", ID_PGD
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第1個分頁\tCtrl+1",     8001
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第2個分頁\tCtrl+2",     8002
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第3個分頁\tCtrl+3",     8003
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第4個分頁\tCtrl+4",     8004
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第5個分頁\tCtrl+5",     8005
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第6個分頁\tCtrl+6",     8006
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第7個分頁\tCtrl+7",     8007
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第8個分頁\tCtrl+8",     8008
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第9個分頁\tCtrl+9",     8009
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到第10個分頁\tCtrl+0",    8010
-        , CHECKED, INACTIVE, MENUBARBREAK
-        MENUITEM "切換到最後一個分頁\tCtrl+End", ID_LASTCON
-        , CHECKED, INACTIVE, MENUBARBREAK
     END
     POPUP "選項 (&V)"
     BEGIN
@@ -330,7 +274,64 @@ BEGIN
         MENUITEM "關於 PCMan Combo (&A)...",    ID_ABOUT
     END
 END
-#endif
+
+IDR_ACCEL_MENU_BACKUP MENU PRELOAD DISCARDABLE
+BEGIN
+    POPUP "編輯 (&E)"
+    BEGIN
+        MENUITEM "複製連結位址",                ID_EDIT_COPYURL
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "向右移動忽略全形自動偵測",    ID_RIGHTNODBCS
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "向左移動忽略全形自動偵測",    ID_LEFTNODBCS
+        , CHECKED, INACTIVE
+        MENUITEM "Backspace 忽略全形自動偵測\tAlt+Backspace", ID_BACKNODBCS
+        , CHECKED, INACTIVE
+        MENUITEM "輸入焦點移到位址列\tAlt+D",   ID_ADSFOCUS
+        , CHECKED, INACTIVE
+        MENUITEM "輸入焦點移到搜尋列\tAlt+K",   ID_SEARCHBAR_FOCUS
+        , CHECKED, INACTIVE
+        MENUITEM "快速輸入WWW網址\tAlt+W",      ID_ADSHTTP
+        , CHECKED, INACTIVE
+        MENUITEM "快速輸入Telnet網址\tAlt+T",   ID_ADSTELNET
+        , CHECKED, INACTIVE
+    END
+    POPUP "BBS畫面切換", CHECKED, INACTIVE, MENUBARBREAK
+    BEGIN
+        MENUITEM "兩連線分頁間來回切換\tCtrl+Tab", ID_SWITCH_BACK
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到上一個分頁\tCtrl+Left", ID_UP
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到下一個分頁\tCtrl+Right", ID_DOWN
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "捲軸往上捲一頁\tCtrl+PageUp", ID_PGU
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "捲軸往下捲一頁\tCtrl+PageDown", ID_PGD
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第1個分頁\tCtrl+1",     8001
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第2個分頁\tCtrl+2",     8002
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第3個分頁\tCtrl+3",     8003
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第4個分頁\tCtrl+4",     8004
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第5個分頁\tCtrl+5",     8005
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第6個分頁\tCtrl+6",     8006
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第7個分頁\tCtrl+7",     8007
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第8個分頁\tCtrl+8",     8008
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第9個分頁\tCtrl+9",     8009
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到第10個分頁\tCtrl+0",    8010
+        , CHECKED, INACTIVE, MENUBARBREAK
+        MENUITEM "切換到最後一個分頁\tCtrl+End", ID_LASTCON
+        , CHECKED, INACTIVE, MENUBARBREAK
+    END
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -450,12 +451,7 @@ END
 // Accelerator
 //
 
-#if defined(APSTUDIO_INVOKED) || defined(BUILD_UI)
-#if defined(APSTUDIO_INVOKED)
-IDR_BUILD_UI$(BUILD_UI) ACCELERATORS DISCARDABLE 
-#else
-IDR_BUILD_UI ACCELERATORS DISCARDABLE 
-#endif
+IDR_BUILD_UI ACCELERATORS DISCARDABLE
 BEGIN
     "0",            ID_SWITCHCON10,         VIRTKEY, CONTROL, NOINVERT
     "0",            ID_SWITCHCON10,         VIRTKEY, ALT, NOINVERT
@@ -515,7 +511,6 @@ BEGIN
     "X",            ID_DOWN,                VIRTKEY, ALT, NOINVERT
     "Z",            ID_UP,                  VIRTKEY, ALT, NOINVERT
 END
-#endif
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -299,7 +299,6 @@ CMainFrame::CMainFrame()
 #if defined(_COMBO_)
 	CWebBrowser::parent = this;
 #endif
-	accels = NULL;
 
 	main_menu = NULL;
 	edit_menu = NULL;
@@ -326,8 +325,6 @@ CMainFrame::CMainFrame()
 CMainFrame::~CMainFrame()
 {
 	DestroyAcceleratorTable(m_hAccelTable);
-	if (accels)
-		delete []accels;
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -2544,38 +2541,10 @@ void CMainFrame::OnBBSMouseCTL()
 
 BOOL CMainFrame::LoadUI()
 {
-	CFile ui;
-	if (!ui.Open(ConfigPath + UI_FILENAME, CFile::modeRead)
-		&& !ui.Open(DefaultConfigPath + UI_FILENAME, CFile::modeRead))
-		return FALSE;
-
-	main_menu = CreateMenu();
-	DWORD l = ui.GetLength();
-	WORD count;
-//取得ACC table長度
-	ui.Read(&count, sizeof(WORD));
-//開始建立Accelerator
-	if (accels)
-		delete []accels;
-	DestroyAcceleratorTable(m_hAccelTable);
-
-	accel_count = count;
-	accels = new ACCEL[count];	//配置記憶體給acc table
-	ui.Read(accels, count*sizeof(ACCEL));	//換算成byte
-
-	m_hAccelTable = CreateAcceleratorTable(accels, count);
-//問題出在這裡,傳入CreateAcceleratorTable的應該是ACCEL的數量,而不是大小(位元組數)!!!!!!
-
-//		Accelerator建立結束,開始讀取 UI
-
-	l -= count + 2;	//剩餘UI長度
-	char* ui_buf = new char[l+32];
-	ui.Read(ui_buf, l);
-	ui.Close();
-
-	UIAddMenu(ui_buf, main_menu);
-	delete []ui_buf;
-//		選單建立結束
+	main_menu = LoadMenu(NULL, MAKEINTRESOURCE(IDR_BUILD_UI));
+	ASSERT(main_menu);
+	m_hAccelTable = LoadAccelerators(NULL, MAKEINTRESOURCE(IDR_BUILD_UI));
+	ASSERT(m_hAccelTable);
 
 	::SetMenu(m_hWnd, main_menu);
 
