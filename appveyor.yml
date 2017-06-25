@@ -5,7 +5,7 @@ install:
 - ps: >-
     git clone -q --branch=master https://github.com/Microsoft/vcpkg.git vcpkg
 
-    if (!(Test-Path -Path 'cache\vcpkg-installed' )) {
+    if (Test-Path -Path 'cache\vcpkg-installed') {
         Copy-Item cache\vcpkg-installed\* vcpkg\installed -recurse
     }
 
