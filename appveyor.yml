@@ -21,7 +21,9 @@ install:
 
     pwd
 
-    Remove-Item cache\vcpkg-installed -Force -Recurse
+    if (Test-Path -Path 'cache\vcpkg-installed') {
+        Remove-Item cache\vcpkg-installed -Force -Recurse
+    }
 
     New-Item -Type dir cache\vcpkg-installed
 
