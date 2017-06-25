@@ -3,9 +3,7 @@ image: Visual Studio 2017
 configuration: Release
 install:
 - cmd: >-
-    git clone -q --branch=master https://github.com/Microsoft/vcpkg.git vcpkg_tmp
-
-    xcopy /y /Q /s /e /R /K /X vcpkg_tmp vcpkg
+    git clone -q --branch=master https://github.com/Microsoft/vcpkg.git vcpkg
 
     copy /y hack\portfile.cmake vcpkg\ports\libwebsockets\portfile.cmake
 
@@ -18,10 +16,6 @@ install:
     vcpkg\vcpkg install libwebsockets
 
     pwd
-
-    rem dir /S /O:N .
-
-    rem dir /O:N .
 cache: C:\projects\pcman-windows\vcpkg
 build:
   project: PCMan.sln
