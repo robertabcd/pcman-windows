@@ -94,7 +94,7 @@
       <Culture>0x0404</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>"$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
+      <Command>chcp 950 &amp;&amp; "$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>wininet.lib;wsock32.lib;winmm.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -139,7 +139,7 @@
       <Culture>0x0404</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>"$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
+      <Command>chcp 950 &amp;&amp; "$(OutDir)..\BuildMenu.exe" $(OutDir)Config</Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>wininet.lib;wsock32.lib;winmm.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
