@@ -12,3 +12,6 @@ after_build:
 - ps: .\Scripts\AfterBuild.ps1
 artifacts:
 - path: Lite\Release\PCMan.7z
+- path: Combo\Release\PCManCB.7z
+- path: Release\PCMan.exe
+- path: Release\PCManCB.exe
