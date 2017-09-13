@@ -25,3 +25,7 @@ Copy-Item cacert.pem 'Lite\Release\PCMan\'
 
 Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?LinkId=746572' -Out 'vc_redist.x64.exe'
 Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?LinkId=746571' -Out 'vc_redist.x86.exe'
+
+md Release
+& .\Version_PreBuildEvent_Combo.bat
+& .\Version_PreBuildEvent_Lite.bat
