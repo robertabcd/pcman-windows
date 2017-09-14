@@ -1,4 +1,7 @@
 git clone -q --branch=master https://github.com/Microsoft/vcpkg.git vcpkg
+pushd vcpkg
+git checkout -qf 32a01e68516d51b998ec80878eb20c000f6c95ba
+popd
 if (Test-Path -Path 'cache\vcpkg-installed') {
 	New-Item -Type dir vcpkg\installed
 	Copy-Item cache\vcpkg-installed\* vcpkg\installed -recurse
