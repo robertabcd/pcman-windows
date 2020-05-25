@@ -708,12 +708,10 @@ UINT CMouseGesture::OnMouseMove(MOUSEHOOKSTRUCT *pMHS)
 			buf[1] = ',';
 			buf[2] = 0;
 
-			DWORD dw1;
-
-			dw1 = strlen(buf) + strlen(m_szDirctionNow) + 1;
-			if (dw1 < m_dwDirction_BufLen)
+			int len = strlen(buf) + strlen(m_szDirctionNow) + 1;
+			if (len < m_dwDirction_BufLen)
 			{
-				strcat(m_szDirctionNow, buf);
+				strncat_s(m_szDirctionNow, m_dwDirction_BufLen, buf, _TRUNCATE);
 
 				UINT GestureID = GetGestureIdFromMap(m_CurrentGesture);
 

@@ -30,7 +30,7 @@ void WINAPI MouseCTL_UpdateStatus(DWORD nID);
 HCURSOR MouseCTL_GetCurrentMouseCursor();
 
 extern CTermView *g_pView;
-char *MouseCTL_GetStatusInfo();
+CString MouseCTL_GetStatusInfo();
 
 
 struct EXTEND_KEY

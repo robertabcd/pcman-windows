@@ -261,7 +261,6 @@ CString NameFromAddress(const CAddress& address)
 {
 	const CString& protocol = address.Protocol();
 
-	unsigned short default_port;
 	if (protocol != "telnet" && protocol != "bbs" &&
 		protocol != "ws" && protocol != "wss")
 		return address.URL();  // Non-BBS. Show full URL.
@@ -695,11 +694,9 @@ void CMainFrame::UpdateStatus()
 			}
 #endif
 
-			char *szMouseGesture;
+			CString szMouseGesture = MouseCTL_GetStatusInfo();
 
-			szMouseGesture = MouseCTL_GetStatusInfo();
-
-			if (szMouseGesture && szMouseGesture[0])
+			if (!szMouseGesture.IsEmpty())
 			{
 				text += "\t\t" + LoadString(IDS_MOUSE_GESTURE) + ": ";
 				text += szMouseGesture;
@@ -3305,7 +3302,7 @@ void CMainFrame::OnAddToHome()
 	txt += "\x0d\x0a";
 	CFile file;
 	char* data = NULL;
-	DWORD len = 0;
+	size_t len = 0;
 	if (file.Open(ConfigPath + HOMEPAGE_FILENAME, CFile::modeRead))
 	{
 		len = file.GetLength();
@@ -3324,7 +3321,10 @@ void CMainFrame::OnAddToHome()
 	{
 		if (data)
 		{
-			for (char *pline = strtok(data, "\x0d\x0a"); pline; pline = strtok(NULL, "\x0d\x0a"))
+			char* ctx = nullptr;
+			for (char *pline = strtok_s(data, "\x0d\x0a", &ctx);
+				pline;
+				pline = strtok_s(NULL, "\x0d\x0a", &ctx))
 			{
 				if (*pline)
 				{
@@ -3450,15 +3450,14 @@ void CMainFrame::OnPasteTinyUrl()
 			if ((s = strstri(found - 150, "http")) && (t = strnstri(s, "</b>", 40)))
 			{
 				char* tinyurl = new char[t-s+1];
-				strncpy(tinyurl, s, t - s);
-				*(tinyurl + (t - s)) = '\0';
+				strncpy_s(tinyurl, t-s+1, s, _TRUNCATE);
 				view.telnet->SendString(tinyurl);
 				delete []tinyurl;
 			}
 		}
 		ar->Close();
 		f.Close();
-		unlink(::AppPath + TINYURL_TEMP_FILENAME);
+		DeleteFile(::AppPath + TINYURL_TEMP_FILENAME);
 	}
 	delete []str;
 }
@@ -3806,7 +3805,8 @@ void CMainFrame::OnBBSFont()
 		fnt.DeleteObject();
 		dlg.GetCurrentFont(&font_info);
 		if (!*font_info.lfFaceName)
-			strcpy(font_info.lfFaceName, LoadString(IDS_DEFAULT_FONT_FACE));
+			strncpy_s(font_info.lfFaceName, sizeof(font_info.lfFaceName),
+				LoadString(IDS_DEFAULT_FONT_FACE), _TRUNCATE);
 		fnt.CreateFontIndirect(&AppConfig.font_info);
 
 		int cols_per_page = telnet ? telnet->site_settings.cols_per_page : AppConfig.site_settings.cols_per_page;

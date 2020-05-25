@@ -392,7 +392,7 @@ inline CStringArray& CFavMenu::GetData(HMENU menu, int& delta)
 
 int FavItemCompare(const void* item1, const void* item2)
 {
-	return strcmpi(*(CString*)item1, *(CString*)item2);
+	return _stricmp(*(CString*)item1, *(CString*)item2);
 }
 
 #if defined( _COMBO_ )

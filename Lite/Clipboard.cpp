@@ -50,8 +50,9 @@ BOOL CClipboard::GetTextW(wchar_t** ppwstr)
 	if (hmem)
 	{
 		wchar_t* data = (wchar_t*)GlobalLock(hmem);
-		*ppwstr = new wchar_t[ wcslen(data) +1];
-		wcscpy(*ppwstr, data);
+		size_t cnt = wcslen(data) + 1;
+		*ppwstr = new wchar_t[cnt];
+		wcsncpy_s(*ppwstr, cnt, data, _TRUNCATE);
 		GlobalUnlock(hmem);
 		CloseClipboard();
 		return TRUE;

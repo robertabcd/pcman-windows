@@ -278,13 +278,11 @@ void CAnsiBar::Send(DWORD type)
 			attr -= 8;
 			escstr += "1;";
 		}
-		itoa(attr + 30, tmp, 10);
-		strcat(tmp, "m");
+		snprintf(tmp, sizeof(tmp), "%dm", attr + 30);
 		escstr += tmp;
 		break;
 	case 2:	//送出背景
-		itoa(bk + 40, tmp, 10);
-		strcat(tmp, "m");
+		snprintf(tmp, sizeof(tmp), "%dm", bk + 40);
 		escstr += tmp;
 		break;
 	case 4:	//送出還原碼

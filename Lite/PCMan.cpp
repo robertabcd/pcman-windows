@@ -310,12 +310,12 @@ BOOL CAboutDlg::OnInitDialog()
 	buffer += _T("\r\n");
 	GetDlgItem(IDC_EDIT)->SetWindowText(buffer.c_str());
 
-	char buf1[0x100];
+	CString version;
 
-	wsprintf(buf1, "%s - %d.%d.%d%s (Novus)",
-			 Version_InternalNameA, Version_Major, Version_Minor, Version_PatchLevel, Version_Append);
+	version.Format("%s - %d.%d.%d%s (Novus)",
+		Version_InternalNameA, Version_Major, Version_Minor, Version_PatchLevel, Version_Append);
 
-	GetDlgItem(IDC_VERSION)->SetWindowText(buf1);
+	GetDlgItem(IDC_VERSION)->SetWindowText(version);
 	return TRUE;
 }
 

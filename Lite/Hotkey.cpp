@@ -172,11 +172,13 @@ void StrToHotkey(const char* str, BYTE* fVirt, WORD* key)
 		return;
 	}
 
-	char tmp[64];	strcpy(tmp, str);
+	char tmp[64];
+	strncpy_s(tmp, sizeof(tmp), str, _TRUNCATE);
 	char* pkey[4];
-	pkey[0] = strtok(tmp, "+");
+	char* ctx = nullptr;
+	pkey[0] = strtok_s(tmp, "+", &ctx);
 	int c = 1;
-	while ((pkey[c] = strtok(NULL, "+")))
+	while ((pkey[c] = strtok_s(NULL, "+", &ctx)))
 		c++;
 
 	*key = keyname_to_val(pkey[c-1]);

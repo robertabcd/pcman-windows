@@ -103,7 +103,7 @@ void CKeyMapDlg::OnOK()
 		DWORD inf = list.GetItemData(i);
 		ent.key = LOWORD(inf);
 		ent.fVirt = (BYTE)HIWORD(inf);
-		strncpy(ent.str, UnescapeControlChars(str), 12);
+		strncpy_s(ent.str, sizeof(ent.str), UnescapeControlChars(str), _TRUNCATE);
 		pmap->Add(ent);
 	}
 	pmap->FreeExtra();

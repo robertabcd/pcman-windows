@@ -509,9 +509,9 @@ void MouseCTL_OnSetFocus(HWND hWnd)
 
 DWORD m_LastGestureID = UNKNOWN_GETURE_ID;
 
-char *MouseCTL_GetStatusInfo()
+CString MouseCTL_GetStatusInfo()
 {
-	static char s_StatusInfo[0x100] = {0};
+	CString status_info;
 	DWORD dw1;
 
 	if (g_szMouseGesture[0])
@@ -527,16 +527,14 @@ char *MouseCTL_GetStatusInfo()
 		if (dw1 > 0)
 			g_szMouseGesture[dw1] = 0;
 
-		wsprintf(s_StatusInfo, "%s  (%s)", g_szMouseGesture, 
+		status_info.Format(_T("%s  (%s)"), g_szMouseGesture, 
 			(pGesture ? pGesture->szCmdInfo : LoadString(IDS_UNKNOWN_GESTURE)));
 
 		if (dw1 > 0)
 			g_szMouseGesture[dw1] = ',';
 	}
-	else
-		s_StatusInfo[0] = 0;
 
-	return s_StatusInfo;
+	return status_info;
 }
 
 void WINAPI MouseCTL_UpdateStatus(DWORD nID)
@@ -771,7 +769,7 @@ const char *MouseCTL_KeyStringToKeyInput(const char *szKeyString_In, char *cKey_
 		for (i = 0; i < sizeof(Extend_Key) / sizeof(Extend_Key[0]); i++)
 		{
 			pBuf1 = Extend_Key[i].szName;
-			if (stricmp(szStringBlock, pBuf1) == 0)
+			if (_stricmp(szStringBlock, pBuf1) == 0)
 			{
 				*cKey_In = Extend_Key[i].VirKey;
 				*bExtendKey = TRUE;
@@ -784,7 +782,7 @@ const char *MouseCTL_KeyStringToKeyInput(const char *szKeyString_In, char *cKey_
 
 
 		//§PÂ_¬O§_¬°Enter
-		if (stricmp(szStringBlock, KEYSTR_ENTER) == 0)
+		if (_stricmp(szStringBlock, KEYSTR_ENTER) == 0)
 		{
 			*cKey_In = VK_RETURN;
 		}

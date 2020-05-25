@@ -72,7 +72,7 @@ int CChildView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	char text[60]; int i;
 	for (i = 1; i <= 12; ++i)
 	{
-		sprintf(text, "Tab Item %d", i);
+		snprintf(text, sizeof(text), "Tab Item %d", i);
 		tab.AppendItem(text, i % 6);
 		tab.SetItemTooltip(i - 1, text);
 	}
@@ -82,7 +82,7 @@ int CChildView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	tab2.Create(WS_VISIBLE | WS_CHILD/*|TCS_BUTTONS*/ | TCS_TOOLTIPS | TCS_SINGLELINE | TCS_FLATBUTTONS | TCS_HOTTRACK, CRect(0, 0, 0, 0), this, 11);
 	for (i = 0; i < 12; ++i)
 	{
-		sprintf(text, "Tab Item %d", i + 1);
+		snprintf(text, sizeof(text), "Tab Item %d", i + 1);
 		tab2.InsertItem(i, text, -1);
 	}
 	return 0;

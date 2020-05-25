@@ -272,17 +272,10 @@ HTREEITEM CDragTreeCtrl::PathToItem(LPCTSTR path, HTREEITEM root, TCHAR separato
 
 CString CDragTreeCtrl::GetItemPath(HTREEITEM item, TCHAR separator)
 {
-	char path[2048];
-	char* pbuf = path + 2048;
-	CString text;
+	CString path;
 	for (; item; item = GetParentItem(item))
 	{
-		text = GetItemText(item);
-		char* pbuf2 = pbuf - (text.GetLength() + 1);
-		strcpy(pbuf2, text);
-		*(pbuf - 1) = separator;
-		pbuf = pbuf2;
+		path = GetItemText(item) + separator + path;
 	}
-	path[2048-1] = 0;
-	return CString(pbuf);
+	return path;
 }

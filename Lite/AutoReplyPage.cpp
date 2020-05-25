@@ -202,15 +202,15 @@ void CAutoReplyPage::UpdateDisplay()
 	respond.SetWindowText(tmp);
 	protect.SetCheck(*LPCTSTR(item->respond) == '+');
 
-	char sfirst[8];
-	itoa(item->first, sfirst, 10);
+	CString sfirst;
+	sfirst.Format(_T("%d"), item->first);
 	first.SetWindowText(sfirst);
-	char scount[8];
 	if (item->count == 0)
 		count.SetWindowText(NULL);
 	else
 	{
-		itoa(item->count, scount, 10);
+		CString scount;
+		scount.Format(_T("%d"), item->count);
 		count.SetWindowText(scount);
 	}
 }

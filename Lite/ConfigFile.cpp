@@ -157,7 +157,7 @@ bool CConfigFile::DoLoad(ConfigTable table)
 				{
 					int r, g, b;
 					r = g = b = 0;
-					if (3 == sscanf(pstrval, "%d,%d,%d", &r, &g, &b))
+					if (3 == sscanf_s(pstrval, "%d,%d,%d", &r, &g, &b))
 						*(COLORREF*)pent->data = RGB(r, g, b);
 				}
 				break;
@@ -216,13 +216,13 @@ bool CConfigFile::DoSave(ConfigTable table)
 				switch (cur_sect->type)
 				{
 				case VT_BYTE:
-					sprintf(strval, "%d", *((unsigned char*)cur_sect->data));
+					snprintf(strval, sizeof(strval), "%d", *((unsigned char*)cur_sect->data));
 					break;
 				case VT_BOOL:
-					sprintf(strval, "%d", (int)*((bool*)cur_sect->data));
+					snprintf(strval, sizeof(strval), "%d", (int)*((bool*)cur_sect->data));
 					break;
 				case VT_INT:
-					sprintf(strval, "%d", *((int*)cur_sect->data));
+					snprintf(strval, sizeof(strval), "%d", *((int*)cur_sect->data));
 					break;
 				case VT_STR:
 					if (cur_sect->data)
@@ -237,14 +237,14 @@ bool CConfigFile::DoSave(ConfigTable table)
 				case VT_COLOR:
 					{
 						COLORREF clr = *(COLORREF*)cur_sect->data;
-						sprintf(strval, "%d,%d,%d", GetRValue(clr), GetGValue(clr), GetBValue(clr));
+						snprintf(strval, sizeof(strval), "%d,%d,%d", GetRValue(clr), GetGValue(clr), GetBValue(clr));
 					}
 					break;
 				case VT_LONG:
-					sprintf(strval, "%ld", *((long*)cur_sect->data));
+					snprintf(strval, sizeof(strval), "%ld", *((long*)cur_sect->data));
 					break;
 				case VT_SHORT:
-					sprintf(strval, "%d", *((short*)cur_sect->data));
+					snprintf(strval, sizeof(strval), "%d", *((short*)cur_sect->data));
 					break;
 				case VT_CUSTOM:
 					{

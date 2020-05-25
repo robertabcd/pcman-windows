@@ -337,8 +337,8 @@ void CTermView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		case VK_LEFT:
 			if (telnet->site_settings.auto_dbcs_arrow && telnet->cursor_pos.x > 1 && IsBig5(curstr, telnet->cursor_pos.x - 2))
 			{
-				strcpy(dbcmd, keystr);
-				strcpy(dbcmd + l, keystr);
+				strncpy_s(dbcmd, sizeof(dbcmd), keystr, _TRUNCATE);
+				strncpy_s(dbcmd + l, sizeof(dbcmd) - l, keystr, _TRUNCATE);
 				telnet->Send(dbcmd, l*2);
 			}
 			else
@@ -347,8 +347,8 @@ void CTermView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		case VK_RIGHT:
 			if (telnet->site_settings.auto_dbcs_arrow && IsBig5(curstr, telnet->cursor_pos.x))
 			{
-				strcpy(dbcmd, keystr);
-				strcpy(dbcmd + l, keystr);
+				strncpy_s(dbcmd, sizeof(dbcmd), keystr, _TRUNCATE);
+				strncpy_s(dbcmd + l, sizeof(dbcmd) - l, keystr, _TRUNCATE);
 				telnet->Send(dbcmd, l*2);
 			}
 			else
@@ -357,8 +357,8 @@ void CTermView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		case VK_BACK:
 			if (telnet->cursor_pos.x > 1 && telnet->site_settings.auto_dbcs_backspace	&& IsBig5(curstr, telnet->cursor_pos.x - 2))
 			{
-				strcpy(dbcmd, keystr);
-				strcpy(dbcmd + l, keystr);
+				strncpy_s(dbcmd, sizeof(dbcmd), keystr, _TRUNCATE);
+				strncpy_s(dbcmd + l, sizeof(dbcmd) - l, keystr, _TRUNCATE);
 				telnet->Send(dbcmd, l*2);
 				if (telnet->site_settings.localecho)
 					telnet->Back(2);
@@ -373,8 +373,8 @@ void CTermView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		case VK_DELETE:
 			if (telnet->site_settings.auto_dbcs_del && IsBig5(curstr, telnet->cursor_pos.x))
 			{
-				strcpy(dbcmd, keystr);
-				strcpy(dbcmd + l, keystr);
+				strncpy_s(dbcmd, sizeof(dbcmd), keystr, _TRUNCATE);
+				strncpy_s(dbcmd + l, sizeof(dbcmd) - l, keystr, _TRUNCATE);
 				telnet->Send(dbcmd, l*2);
 				if (telnet->site_settings.localecho)
 					telnet->Delete(2);
@@ -1803,7 +1803,7 @@ void CTermView::UpdateBkgnd()
 		if (AppConfig.bkpath.GetLength() > 3)
 		{
 			LPCTSTR ext = LPCTSTR(AppConfig.bkpath) + AppConfig.bkpath.GetLength() - 3;
-			if (0 == stricmp(ext, "bmp"))	// *.bmp
+			if (0 == _stricmp(ext, "bmp"))	// *.bmp
 				bk = (HBITMAP)LoadImage(AfxGetInstanceHandle(), AppConfig.bkpath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 			else	// *.gif, *.jpg
 			{
@@ -2844,7 +2844,7 @@ void CTermView::OnEditOpenURL(UINT id)
 		url = "ftp://" + url;
 		break;
 	case ID_EDIT_OPENURL_TELNET:
-		if (0 != strnicmp(url, "telnet:", 7))
+		if (0 != _strnicmp(url, "telnet:", 7))
 			url = "telnet://" + url;
 		parent->OnNewConnectionAds(url);
 		return;
@@ -3012,7 +3012,6 @@ void CTermView::OnLayoutChanged()
 void CTermView::ConnectStr(CString name, CString dir)
 {
 	CString url;
-	unsigned short port;
 	int i = name.Find('\t');
 	url = name.Mid(i + 1);
 	char type = name[0];

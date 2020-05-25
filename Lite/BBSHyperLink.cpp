@@ -27,8 +27,9 @@ void CBBSHyperLink::Load(char* section)
 	if (*section)
 	{
 		links.RemoveAll();
-		char* line = strtok(section, "\r\n");
-		for (; line; line = strtok(NULL, "\r\n"))
+		char* ctx = nullptr;
+		char* line = strtok_s(section, "\r\n", &ctx);
+		for (; line; line = strtok_s(NULL, "\r\n", &ctx))
 		{
 			// format of each line: schema=program|color
 			CBBSHyperLinkData data;
@@ -45,7 +46,7 @@ void CBBSHyperLink::Load(char* section)
 			data.program = line;
 			line = eq + 1;
 			int r, g, b;
-			if (sscanf(line, "%d,%d,%d", &r, &g, &b) < 3)
+			if (sscanf_s(line, "%d,%d,%d", &r, &g, &b) < 3)
 				continue;
 			data.color = RGB(r, g, b);
 			int i = links.Add(data);
@@ -65,7 +66,7 @@ void CBBSHyperLink::Save(CString& section)
 		section += '|';
 		char color_str[32];
 		COLORREF color = links[i].color;
-		sprintf(color_str, "%d,%d,%d\r\n",
+		snprintf(color_str, sizeof(color_str), "%d,%d,%d\r\n",
 				GetRValue(color), GetGValue(color), GetBValue(color));
 		section += color_str;
 	}
@@ -141,7 +142,7 @@ const char* CBBSHyperLink::FindHyperLink(const char *src, int &len) const
 				{
 					int scheme_len = links[i].scheme.GetLength();
 					const char* _plink = src - scheme_len;
-					if (_plink >= plink && strnicmp(_plink, links[i].scheme, scheme_len) == 0)
+					if (_plink >= plink && _strnicmp(_plink, links[i].scheme, scheme_len) == 0)
 					{
 						plink = _plink;
 						break;
@@ -179,7 +180,7 @@ void CBBSHyperLink::OpenURL(LPCTSTR url)
 			param = url;
 		}
 	}
-	if (strnicmp(url, "telnet", 6) == 0)
+	if (_strnicmp(url, "telnet", 6) == 0)
 		((CMainFrame*)AfxGetMainWnd())->OnNewConnectionAds(url);
 	else
 	{
@@ -235,7 +236,7 @@ int CBBSHyperLink::GetURLType(const char *url)
 	int i;
 	for (i = 0;i < links.GetSize(); ++i)
 	{
-		if (strnicmp(plinks[i].scheme, url, len) == 0)	//如果有偵測到
+		if (_strnicmp(plinks[i].scheme, url, len) == 0)	//如果有偵測到
 			break;
 	}
 

@@ -29,7 +29,7 @@ char* strnrstri(const char* str, const char* sub, int len)
 	int sl = strlen(sub);
 	for (pstr = pend - sl; pstr >= str; pstr--)
 	{
-		if (!strnicmp(pstr, sub, sl))
+		if (!_strnicmp(pstr, sub, sl))
 			return (char*)pstr;
 	}
 	return NULL;
@@ -45,7 +45,7 @@ char* strnstri(const char* str, const char* sub, int len)
 	int sl = strlen(sub);
 	for (pstr = str; pstr <= pend - sl; pstr++)
 	{
-		if (!strnicmp(pstr, sub, sl))
+		if (!_strnicmp(pstr, sub, sl))
 			return (char*)pstr;
 	}
 	return NULL;
@@ -227,9 +227,6 @@ char* UTF8ToMultiByte(LPCSTR utf8str, int* outlen)
 
 const char* CharToHex(int ch, char* buffer)
 {
-	// sprintf is too time-consuming
-	// sprintf( buffer, "%02X", ch );
-
 	// NOTE: There is no check here due to performance consideration.
 	//       The value of "ch" should not greater than 255.
 

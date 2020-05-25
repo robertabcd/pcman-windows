@@ -332,10 +332,16 @@ inline void CTelnetConn::OnIAC()
 				pbuf++;
 				if (*pbuf == SEND)
 				{
-					int l = site_settings.termtype.GetLength() + 6;
+					const auto& tt = site_settings.termtype;
+					int l = tt.GetLength() + 6;
 					BYTE *type = new BYTE[l];
-					type[0] = IAC;	type[1] = SB;	type[2] = TERMINAL_TYPE;	type[3] = IS;
-					strcpy((char*)type + 4, LPCTSTR(site_settings.termtype));	type[l-2] = IAC;	type[l-1] = SE;
+					type[0] = IAC;
+					type[1] = SB;
+					type[2] = TERMINAL_TYPE;
+					type[3] = IS;
+					memcpy(type + 4, LPCTSTR(tt), tt.GetLength());
+					type[l-2] = IAC;
+					type[l-1] = SE;
 					Send(type, l);
 					delete []type;
 				}

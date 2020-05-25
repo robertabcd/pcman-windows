@@ -64,7 +64,7 @@ CKeyMap* CKeyMap::Load(LPCTSTR kmname)
 		kmf.Close();
 		pkm->FreeExtra();
 	}
-	strncpy(pkm->name, kmname, 12);
+	strncpy_s(pkm->name, sizeof(pkm->name), kmname, _TRUNCATE);
 	return pkm;
 }
 
@@ -99,7 +99,7 @@ BOOL CKeyMap::ReName(LPCTSTR oldname, LPCTSTR newname)
 	CKeyMap* pmap = FindMap(oldname);
 	BOOL r = MoveFile(GetKeyMapDir() + oldname, GetKeyMapDir() + newname);
 	if (r && pmap)
-		strncpy(pmap->name, newname, 12);
+		strncpy_s(pmap->name, sizeof(pmap->name), newname, _TRUNCATE);
 	return r;
 }
 

@@ -30,7 +30,7 @@ void CAES::EnterPassword(CString passwd)
 	int len = (passwd.GetLength() / 16 + (passwd.GetLength() % 16 ? 1 : 0)) * 16;
 	char pad[32];
 	memset(pad, 0, len);
-	strcpy(pad, passwd);
+	strncpy_s(pad, sizeof(pad), passwd, _TRUNCATE);
 	MakeKey(pad, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 16);
 	m_bInit = true;
 }

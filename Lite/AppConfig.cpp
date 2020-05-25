@@ -491,7 +491,7 @@ bool CAppConfig::OnDataExchange(bool load)
 	bool ret = DoDataExchange(load, table);
 
 	if (load)
-		strcpy(font_info.lfFaceName, lfFaceName);
+		_tcsncpy_s(font_info.lfFaceName, sizeof(font_info.lfFaceName), lfFaceName, _TRUNCATE);
 	return ret;
 }
 

@@ -24,7 +24,7 @@ CSimpXmlParser::~CSimpXmlParser()
 bool CSimpXmlParser::ParseXml(char *buf)
 {
 	// Check BOM
-	if (strnicmp(buf, "\xEF\xBB\xBF", 3) == 0)
+	if (_strnicmp(buf, "\xEF\xBB\xBF", 3) == 0)
 	{
 		is_utf8 = true;
 		buf += 3;
@@ -48,7 +48,7 @@ bool CSimpXmlParser::ParseXml(char *buf)
 				++tmp;
 			if (*tmp != '\"')	// value without ""
 				return false;
-			is_utf8 = (0 == strnicmp(tmp, "utf-8", 5));
+			is_utf8 = (0 == _strnicmp(tmp, "utf-8", 5));
 		}
 	}
 

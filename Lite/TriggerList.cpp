@@ -175,11 +175,11 @@ void CTriggerList::Save(CString& section)
 		char buf[16];
 		section += "<item>\r\n";
 		section += "first=";
-		sprintf(buf, "%d\r\n", item->first);
+		snprintf(buf, sizeof(buf), "%d\r\n", item->first);
 		section += buf;
 
 		section += "count=";
-		sprintf(buf, "%d\r\n", item->count);
+		snprintf(buf, sizeof(buf), "%d\r\n", item->count);
 		section += buf;
 
 		section += "recv=";
